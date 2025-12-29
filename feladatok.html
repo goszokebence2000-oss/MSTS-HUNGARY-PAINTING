@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feladatok</title>
+
+    <style>
+        body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-image: url('img/background.png');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: #000;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Felső rész */
+    .felso {
+      background-color: rgba(51, 51, 51, 0.8);
+      border-radius: 0 0 10px 10px;
+      padding: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    }
+
+    .felso h1 {
+      color: yellow;
+      text-align: center;
+      margin: 0;
+    }
+
+    /* Navigáció */
+    #ulb {
+      list-style-type: none;
+      padding: 0;
+      margin: 10px 0 0 0;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .lib {
+      margin: 5px;
+      position: relative;
+    }
+
+    .lib a {
+      text-decoration: none;
+      color: white;
+      padding: 8px 12px;
+      display: block;
+      background-color: #555;
+      border-radius: 8px;
+      transition: background-color 0.3s;
+      white-space: nowrap;
+    }
+
+    .lib a:hover {
+      background-color: #777;
+    }
+
+    /* ===== DROPDOWN MENÜ ===== */
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #555;
+      border-radius: 8px;
+      min-width: 220px;
+      padding: 5px 0;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+      z-index: 1000;
+    }
+
+    .dropdown-menu li {
+      margin: 0;
+    }
+
+    .dropdown-menu li a {
+      border-radius: 0;
+    }
+
+    .dropdown:hover .dropdown-menu {
+      display: block;
+    }
+    </style>
+
+</head>
+<body>
+    <div class="felso">
+  <h1>Feladatok</h1>
+  <ul id="ulb">
+    <li class="lib"><a href="https://goszokebence2000-oss.github.io/magyartsmstsopenrails/index.html">Főoldal</a></li>
+    <li class="lib"><a class="active" href="https://goszokebence2000-oss.github.io/magyartsmstsopenrails/feladatok.html">Feladatok,Activity</a></li>
+    <li class="lib dropdown">
+      <a href="">Járműpark</a>
+      <ul class="dropdown-menu">
+        <li><a href="">Villanymozdony</a></li>
+        <li><a href="">Dízelmozdony</a></li>
+        <li><a href="">Motorvonat (villamos)</a></li>
+        <li><a href="">Motorvonat (dízel)</a></li>
+        <li><a href="">Személykocsik</a></li>
+      </ul>
+    </li>
+    <li class="lib"><a href="https://goszokebence2000-oss.github.io/magyartsmstsopenrails/index.html">sound</a></li>
+    <li class="lib"><a href="https://goszokebence2000-oss.github.io/magyartsmstsopenrails/index.html">kijelzo</a></li>
+    <li class="lib"><a href="https://goszokebence2000-oss.github.io/magyartsmstsopenrails/index.html">Hamarosan ki fogom adni</a></li>
+    <li class="lib"><a href="https://goszokebence2000-oss.github.io/magyartsmstsopenrails/index.html">Szabályzat</a></li>
+  </ul>
+</div>
+
+<div class="content">
+
+    <p style="color: red;">Ide ird be a feladat adatait</p>
+    <p style="color:red; font-size:24px;"></p>
+    <!--A drive linket a href="" részbe másold-->
+    <a href="drive linket ide másold" target="_blank">
+    <img src="ide kell megadni a képet" alt="">
+  </a>
+
+</div>
+
+</body>
+</html>
