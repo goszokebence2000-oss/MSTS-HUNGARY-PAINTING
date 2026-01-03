@@ -19,7 +19,6 @@
             min-height: 100vh;
         }
 
-        /* Felső rész */
         .felso {
             background-color: rgba(51, 51, 51, 0.8);
             border-radius: 0 0 10px 10px;
@@ -33,7 +32,6 @@
             margin: 0;
         }
 
-        /* Navigáció */
         #ulb {
             list-style-type: none;
             padding: 0;
@@ -63,7 +61,6 @@
             background-color: #777;
         }
 
-        /* ===== DROPDOWN MENÜ ===== */
         .dropdown-menu {
             display: none;
             position: absolute;
@@ -89,7 +86,6 @@
             display: block;
         }
 
-        /* Tartalom */
         .content {
             flex: 1;
             padding: 20px;
@@ -108,17 +104,14 @@
             color: black;
         }
 
-        /* Reszponzív */
         @media (max-width: 600px) {
             .felso h1 {
                 font-size: 1.5em;
             }
-
             #ulb {
                 flex-direction: column;
                 align-items: center;
             }
-
             .lib a {
                 width: 80%;
                 text-align: center;
@@ -159,8 +152,6 @@
         <img src="képet ide kell betalózni" alt="BDt-400 3G festés">
     </a>
     <p id="BDt-400-counter" class="counter">0 letöltés</p>
-
-    <!-- Itt adhatsz hozzá további fájlokat ugyanígy -->
 </div>
 
 <!-- Firebase SDK -->
@@ -170,7 +161,7 @@
 <script>
   // Firebase konfiguráció
   const firebaseConfig = {
-    apiKey: "IDE_JÖN", // cseréld a barátod Firebase kulcsaira
+    apiKey: "IDE_JÖN",
     authDomain: "PROJECT_ID.firebaseapp.com",
     databaseURL: "https://mmphletoltesszamlalo-default-rtdb.europe-west1.firebasedatabase.app",
     projectId: "PROJECT_ID",
@@ -188,7 +179,7 @@
 
   links.forEach(link => {
     const counterId = link.dataset.counter;
-    const counterRef = db.ref('bence/' + counterId);
+    const counterRef = db.ref('MMPH/' + counterId); // <-- itt az új ág neve
 
     // Ha még nincs adat, hozzuk létre 0-val
     counterRef.once('value').then(snapshot => {
