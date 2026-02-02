@@ -83,12 +83,23 @@ body {
 .download-link img {
   width: 300px;
   cursor: pointer;
+  display: block;
+  border: 2px solid transparent;
+  transition: border 0.3s;
+}
+
+.download-link img:hover {
+  border: 2px solid yellow;
 }
 
 .counter {
   font-weight: bold;
   margin-top: 5px;
   color: black;
+  background-color: rgba(255, 255, 255, 0.6);
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
 }
 </style>
 </head>
@@ -130,40 +141,59 @@ body {
     <img src="img/BDt-400.png" alt="BDt-400">
   </a>
 
-  <p id="bdt_400-counter" class="counter">0 letöltés</p>
+  <p id="bdt_400-counter" class="counter">Betöltés...</p>
 </div>
 
-<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
 
 <script>
-const firebaseConfig = {
-  apiKey: "IDE_A_SAJÁT_API_KEY",
-  authDomain: "mmphletoltesszamlalo.firebaseapp.com",
-  databaseURL: "https://mmphletoltesszamlalo-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "mmphletoltesszamlalo",
-  storageBucket: "mmphletoltesszamlalo.appspot.com",
-  messagingSenderId: "SAJAT_SENDER_ID",
-  appId: "SAJAT_APP_ID"
-};
+  // A szemelykocsik.html SAJÁT adatbázis konfigurációja
+  const firebaseConfig = {
+    apiKey: "IDE_A_SAJÁT_API_KEY", 
+    authDomain: "mmphletoltesszamlalo.firebaseapp.com",
+    databaseURL: "https://mmphletoltesszamlalo-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "mmphletoltesszamlalo",
+    storageBucket: "mmphletoltesszamlalo.appspot.com",
+    messagingSenderId: "SAJAT_SENDER_ID",
+    appId: "SAJAT_APP_ID"
+  };
 
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
+  // Inicializálás
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.database();
 
-document.querySelectorAll('.download-link').forEach(link => {
-  const id = link.dataset.counter;
-  const ref = db.ref(id); // 👉 GYÖKÉR
+  // Számlálók kezelése a vonat.html logikája alapján
+  const downloadLinks = document.querySelectorAll('.download-link');
 
-  ref.on('value', snap => {
-    document.getElementById(id + '-counter').textContent =
-      (snap.val() || 0) + ' letöltés';
+  downloadLinks.forEach(link => {
+    const counterId = link.dataset.counter;
+    // Figyelem: Itt a gyökérben keressük az adatot (mint az eredetiben)
+    const counterRef = db.ref(counterId);
+
+    // 1. Alapértelmezett érték ellenőrzése (ha még nem létezne)
+    counterRef.once('value').then(snap => {
+      if (snap.val() === null) {
+        counterRef.set(0);
+      }
+    });
+
+    // 2. Valós idejű figyelés (ha bárki kattint, mindenkinél frissül)
+    counterRef.on('value', snap => {
+      const currentCount = snap.val() || 0;
+      const displayElem = document.getElementById(counterId + '-counter');
+      if (displayElem) {
+        displayElem.textContent = currentCount + " letöltés";
+      }
+    });
+
+    // 3. Kattintás esemény (Tranzakció használata az ütközések elkerülésére)
+    link.addEventListener('click', () => {
+      counterRef.transaction(currentValue => {
+        return (currentValue || 0) + 1;
+      });
+    });
   });
-
-  link.addEventListener('click', () => {
-    ref.transaction(v => (v || 0) + 1);
-  });
-});
 </script>
 
 </body>
