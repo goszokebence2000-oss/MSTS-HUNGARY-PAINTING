@@ -84,22 +84,15 @@ body {
   width: 300px;
   cursor: pointer;
   display: block;
-  border: 2px solid transparent;
-  transition: border 0.3s;
-}
-
-.download-link img:hover {
-  border: 2px solid yellow;
 }
 
 .counter {
   font-weight: bold;
   margin-top: 5px;
   color: black;
-  background-color: rgba(255, 255, 255, 0.6);
+  background: rgba(255,255,255,0.7);
   display: inline-block;
-  padding: 2px 8px;
-  border-radius: 4px;
+  padding: 2px 5px;
 }
 </style>
 </head>
@@ -141,59 +134,47 @@ body {
     <img src="img/BDt-400.png" alt="BDt-400">
   </a>
 
-  <p id="bdt_400-counter" class="counter">Betöltés...</p>
+  <p id="bdt_400-counter" class="counter">0 letöltés</p>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
 
 <script>
-  // A szemelykocsik.html SAJÁT adatbázis konfigurációja
-  const firebaseConfig = {
-    apiKey: "IDE_A_SAJÁT_API_KEY", 
-    authDomain: "mmphletoltesszamlalo.firebaseapp.com",
-    databaseURL: "https://mmphletoltesszamlalo-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId: "mmphletoltesszamlalo",
-    storageBucket: "mmphletoltesszamlalo.appspot.com",
-    messagingSenderId: "SAJAT_SENDER_ID",
-    appId: "SAJAT_APP_ID"
-  };
+// FIGYELEM: Az apiKey-t és az AppId-t ki kell másolnod a Firebase konzolból!
+const firebaseConfig = {
+  apiKey: "IDE_MÁSOLD_BE_A_KULCSOT",
+  authDomain: "mmphletoltesszamlalo.firebaseapp.com",
+  databaseURL: "https://mmphletoltesszamlalo-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "mmphletoltesszamlalo",
+  storageBucket: "mmphletoltesszamlalo.appspot.com",
+  messagingSenderId: "367280386762", // Példa ID
+  appId: "1:367280386762:web:a6f5..." // Példa ID
+};
 
-  // Inicializálás
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.database();
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
 
-  // Számlálók kezelése a vonat.html logikája alapján
-  const downloadLinks = document.querySelectorAll('.download-link');
+const links = document.querySelectorAll('.download-link');
 
-  downloadLinks.forEach(link => {
-    const counterId = link.dataset.counter;
-    // Figyelem: Itt a gyökérben keressük az adatot (mint az eredetiben)
-    const counterRef = db.ref(counterId);
+links.forEach(link => {
+  const id = link.dataset.counter;
+  const ref = db.ref(id); 
 
-    // 1. Alapértelmezett érték ellenőrzése (ha még nem létezne)
-    counterRef.once('value').then(snap => {
-      if (snap.val() === null) {
-        counterRef.set(0);
-      }
-    });
-
-    // 2. Valós idejű figyelés (ha bárki kattint, mindenkinél frissül)
-    counterRef.on('value', snap => {
-      const currentCount = snap.val() || 0;
-      const displayElem = document.getElementById(counterId + '-counter');
-      if (displayElem) {
-        displayElem.textContent = currentCount + " letöltés";
-      }
-    });
-
-    // 3. Kattintás esemény (Tranzakció használata az ütközések elkerülésére)
-    link.addEventListener('click', () => {
-      counterRef.transaction(currentValue => {
-        return (currentValue || 0) + 1;
-      });
-    });
+  // Valós idejű frissítés
+  ref.on('value', snap => {
+    const val = snap.val() || 0;
+    const counterElem = document.getElementById(id + '-counter');
+    if(counterElem) counterElem.textContent = val + ' letöltés';
+  }, error => {
+    console.error("Firebase hiba:", error);
   });
+
+  // Kattintás számlálás
+  link.addEventListener('click', () => {
+    ref.transaction(current => (current || 0) + 1);
+  });
+});
 </script>
 
 </body>
