@@ -172,10 +172,13 @@ links.forEach(link => {
   const counterId = link.dataset.counter;
   if (!counterId) return;
 
-  const counterRef = db.ref('MMPH/' + counterId);
+  // 👉 GYÖKÉRBE ÍRUNK
+  const counterRef = db.ref(counterId);
 
   counterRef.once('value').then(snapshot => {
-    if (snapshot.val() === null) counterRef.set(0);
+    if (snapshot.val() === null) {
+      counterRef.set(0);
+    }
   });
 
   counterRef.on('value', snapshot => {
