@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hamarosan kiadva</title>
+
+    <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-image: url('img/background.png');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: #000;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Felső rész */
+    .felso {
+      background-color: rgba(51, 51, 51, 0.8);
+      border-radius: 0 0 10px 10px;
+      padding: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    }
+
+    .felso h1 {
+      color: yellow;
+      text-align: center;
+      margin: 0;
+    }
+
+    /* Navigáció */
+    #ulb {
+      list-style-type: none;
+      padding: 0;
+      margin: 10px 0 0 0;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .lib {
+      margin: 5px;
+      position: relative;
+    }
+
+    .lib a {
+      text-decoration: none;
+      color: white;
+      padding: 8px 12px;
+      display: block;
+      background-color: #555;
+      border-radius: 8px;
+      transition: background-color 0.3s;
+      white-space: nowrap;
+    }
+
+    .lib a:hover {
+      background-color: #777;
+    }
+
+    /* ===== DROPDOWN MENÜ ===== */
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #555;
+      border-radius: 8px;
+      min-width: 220px;
+      padding: 5px 0;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+      z-index: 1000;
+    }
+
+    .dropdown-menu li {
+      margin: 0;
+    }
+
+    .dropdown-menu li a {
+      border-radius: 0;
+    }
+
+    .dropdown:hover .dropdown-menu {
+      display: block;
+    }
+
+    /* Footer */
+    footer {
+      background-color: rgba(51, 51, 51, 0.85);
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      padding: 20px;
+      font-size: 15px;
+      margin-top: auto;
+      border-radius: 10px 10px 0 0;
+      box-shadow: 0 -2px 8px rgba(0,0,0,0.4);
+    }
+
+    .tudnivalok-footer {
+      flex: 1 1 300px;
+      min-width: 280px;
+      margin-right: 20px;
+      border-right: 1px solid rgba(255,255,255,0.3);
+      padding-right: 20px;
+    }
+
+    .tudnivalok-footer #nagybetu {
+      font-size: 20px;
+      font-weight: bold;
+      text-decoration: underline;
+      margin-bottom: 10px;
+    }
+
+    .tudnivalok-footer ul {
+      list-style-type: disc;
+      padding-left: 20px;
+      margin: 0;
+    }
+
+    .uzenet-footer {
+      flex: 1 1 300px;
+      min-width: 280px;
+      text-align: right;
+      padding-left: 20px;
+    }
+
+    .uzenet-footer a {
+      color: #00bfff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .copy {
+      width: 100%;
+      text-align: center;
+      font-size: 13px;
+      margin-top: 15px;
+      opacity: 0.8;
+    }
+
+    /* Mobil nézet */
+    @media (max-width: 700px) {
+      footer {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .tudnivalok-footer, .uzenet-footer {
+        border-right: none;
+        padding: 0;
+        margin: 10px 0;
+        text-align: center;
+      }
+
+      .tudnivalok-footer ul {
+        padding-left: 0;
+        list-style-position: inside;
+      }
+    }
+    </style>
+</head>
+
+<body>
+
+<div class="felso">
+  <h1>Hamarosan ki fogom adni</h1>
+
+  <ul id="ulb">
+    <li class="lib"><a href="https://goszokebence2000-oss.github.io/magyartsmstsopenrails/index.html">Főoldal</a></li>
+    <li class="lib"><a href="https://goszokebence2000-oss.github.io/magyartsmstsopenrails/feladatok.html">Feladatok, Activity</a></li>
+
+    <!-- JÁRMŰPARK DROPDOWN -->
+    <li class="lib dropdown">
+      <a href="">Járműpark</a>
+      <ul class="dropdown-menu">
+        <li><a href="https://goszokebence2000-oss.github.io/magyartsmstsopenrails/villanymozdony.html">Villanymozdony</a></li>
+        <li><a href="https://goszokebence2000-oss.github.io/magyartsmstsopenrails/dizelmozdony.html">Dízelmozdony</a></li>
+        <li><a href="https://goszokebence2000-oss.github.io/magyartsmstsopenrails/villanymotorvonat.html">Motorvonat (villamos)</a></li>
+        <li><a href="https://goszokebence2000-oss.github.io/magyartsmstsopenrails/dizelmotorvonat.html">Motorvonat (dízel)</a></li>
+        <li><a href="https://goszokebence2000-oss.github.io/magyartsmstsopenrails/szemelykocsik.html">Személykocsik</a></li>
+      </ul>
+    </li>
+
+    <li class="lib"><a href="https://goszokebence2000-oss.github.io/magyartsmstsopenrails/index.html">Sound</a></li>
+    <li class="lib"><a href="https://goszokebence2000-oss.github.io/magyartsmstsopenrails/index.html">Kijelző</a></li>
+    <li class="lib"><a class="active" href="https://goszokebence2000-oss.github.io/magyartsmstsopenrails/hkfa.html">Hamarosan ki fogom adni</a></li>
+    <li class="lib"><a href="https://goszokebence2000-oss.github.io/magyartsmstsopenrails/index.html">Szabályzat</a></li>
+  </ul>
+</div>
+
+<img src="img/IcKocsi.jpeg" alt="IcKocsi" title="IcKocsi">
+
+<footer>
+  <div class="tudnivalok-footer">
+    <p id="nagybetu">Tudnivalók</p>
+    <ul>
+      <li>M Magyar</li>
+      <li>R Román</li>
+      <li>V Vasúttársaság</li>
+      <li>MSTS</li>
+    </ul>
+  </div>
+
+  <div class="uzenet-footer">
+    <p>Üzenet küldése az oldal tulajdonosának:
+      <a href="mailto:Spottermilan@gmail.com">Spottermilan@gmail.com</a>
+    </p>
+  </div>
+
+  <div class="copy">
+    <p>© 2025 MRV-MSTShun</p>
+  </div>
+</footer>
+
+</body>
+</html>
