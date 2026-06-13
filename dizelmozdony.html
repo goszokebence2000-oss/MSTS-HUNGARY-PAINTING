@@ -125,7 +125,46 @@
     <a href="https://drive.google.com/file/d/1d0TVMgtomuXul2rxfuVvn4YXebKnv9QD/view?usp=drive_link" target="_blank"><img src= "img/1522-henschel.png "></a>
     <h1 class="section-title">1522-es Henschel</h1>    
 </div>
+        
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
 
+<script>
+// FIGYELEM: Az apiKey-t és az AppId-t ki kell másolnod a Firebase konzolból!
+const firebaseConfig = {
+  apiKey: "IDE_MÁSOLD_BE_A_KULCSOT",
+  authDomain: "mmphletoltesszamlalo.firebaseapp.com",
+  databaseURL: "https://mmphletoltesszamlalo-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "mmphletoltesszamlalo",
+  storageBucket: "mmphletoltesszamlalo.appspot.com",
+  messagingSenderId: "367280386762", // Példa ID
+  appId: "1:367280386762:web:a6f5..." // Példa ID
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+const links = document.querySelectorAll('.download-link');
+
+links.forEach(link => {
+  const id = link.dataset.counter;
+  const ref = db.ref(id); 
+
+  // Valós idejű frissítés
+  ref.on('value', snap => {
+    const val = snap.val() || 0;
+    const counterElem = document.getElementById(id + '-counter');
+    if(counterElem) counterElem.textContent = val + ' letöltés';
+  }, error => {
+    console.error("Firebase hiba:", error);
+  });
+
+  // Kattintás számlálás
+  link.addEventListener('click', () => {
+    ref.transaction(current => (current || 0) + 1);
+  });
+});
+</script>
 </body>
 
 </html>
